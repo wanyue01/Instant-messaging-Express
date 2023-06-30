@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import exampleRoute from './routes/exampleRoute';
+// import exampleRoute from './routes/exampleRoute';
 import errorMiddleware from './middlewares/errorMiddleware';
 import HTTPException from './exceptions/HttpException';
+import loginRoute from './routes/loginRoute';
 
 const app: express.Application = express();
 
@@ -21,7 +22,8 @@ app.get('/', (req, res) => {
   res.send('This is Instant-messaging-Express');
 });
 
-app.use('/api', exampleRoute);
+app.use('/api', loginRoute);
+// app.use('/api', exampleRoute);
 
 app.use((_req, res, next) => {
   const error: HTTPException = new HTTPException(404, '路由未分配');

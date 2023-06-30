@@ -6,12 +6,13 @@ const errorMiddleware = (
   err: HTTPException,
   _req: Request,
   res: Response,
-  _next: NextFunction) => {
-    res.status(err.status || INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: err.message,
-      error: err.error,
-    });
+  _next: NextFunction
+) => {
+  return res.status(err.status || INTERNAL_SERVER_ERROR).json({
+    success: false,
+    message: err.message,
+    error: err.error,
+  });
 };
 
 export default errorMiddleware;

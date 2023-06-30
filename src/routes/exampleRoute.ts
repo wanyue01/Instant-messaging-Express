@@ -6,7 +6,7 @@ import exampleSchema from '../schema/exampleSchema';
 const router = express.Router();
 
 router.get('/example',
-  validate.roles(exampleSchema.nameDto, undefined, 'query'),
+  validate.roles(exampleSchema.NameDto, undefined, 'query'),
   exampleController.getExample);
 
 export default router;

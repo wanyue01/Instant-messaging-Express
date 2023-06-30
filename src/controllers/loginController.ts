@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import userService from "../services/userService";
 import { UserDto } from "../Dto/userDto";
+import HTTPException from "../exceptions/HttpException";
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;
@@ -28,6 +29,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         },
       });
     } else if (data1.length === 1) {
+      // 比较密码是否一致
+      const flag = bcrypt.compareSync(password, data1[0].password);
+      if (!flag) {
+        throw new HTTPException(200, '用户名或密码出错');
+      }
       data1?.forEach((item: any) => delete item.password);
       return res.json({
         success: true,
